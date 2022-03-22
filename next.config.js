@@ -1,49 +1,14 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   reactStrictMode: true,
-// }
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  env: {
+    customKey: 'my-value',
+    AUTH0_SECRET: 'use [openssl rand -hex 32] to generate a 32 bytes value',
+    AUTH0_BASE_URL: 'http://localhost:3000',
+    AUTH0_ISSUER_BASE_URL: 'https://sozdayka.us.auth0.com',
+    AUTH0_CLIENT_ID: 'ROvjey82bOGLD2UZMUmjagniGEfzOPSf',
+    AUTH0_CLIENT_SECRET: 'tIvlJu1mT8XimZa8dlO8nw59QhaMELwhNecQCIPaSwioD5sQRG3RRUrhrVkopwfK'
+  }
+}
 
-// module.exports = nextConfig
-const path = require('path')
-
-const createNextPluginPreval = require('next-plugin-preval/config')
-const withNextPluginPreval = createNextPluginPreval()
-
-const withImages = require('next-images')
-// const { UnusedFilesWebpackPlugin } = require('unused-files-webpack-plugin')
-
-module.exports = withNextPluginPreval(
-  withImages({
-    trailingSlash: true,
-
-    webpack (config, options) {
-      const raw = Object.keys(process.env)
-        .reduce(
-          (env, key) => {
-            env[key] = process.env[key]
-            return env
-          },
-          {
-            AUTH0_SECRET: process.env.AUTH0_SECRET,
-            AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,
-            AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
-            AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-            AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET
-          }
-        )
-
-      const env = {
-        'process.env': Object.keys(raw).reduce((env, key) => {
-          env[key] = JSON.stringify(raw[key])
-          return env
-        }, {})
-      }
-
-      config.plugins.push(
-        new options.webpack.DefinePlugin(env)
-      )
-
-      return config
-    }
-  })
-)
+module.exports = nextConfig
