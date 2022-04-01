@@ -75,6 +75,7 @@ export default handleAuth({
 
   async callback(req, res) {
     try {
+      console.log({req})
       console.log({host: req.headers})
       const orgName = getOrgName(req.headers['x-forwarded-host']);
       if (!orgName) {
