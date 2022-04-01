@@ -1,4 +1,4 @@
-import { handleAuth } from '@auth0/nextjs-auth0';
+// import { handleAuth } from '@auth0/nextjs-auth0';
 import {
   handleAuth,
   handleLogin,
@@ -6,10 +6,10 @@ import {
   getSession,
 } from "@auth0/nextjs-auth0";
 
-function getOrgId(orgName) {
-  // get org id from org name
-  return ...;
-}
+// function getOrgId(orgName) {
+//   // get org id from org name
+//   return ...;
+// }
 
 function getReturnTo(path = "/", orgName) {
   const url = new URL(path, "http://localhost:3000");
@@ -24,33 +24,33 @@ function getOrgName(hostname) {
   return Array.isArray(matches) ? matches[1] : null;
 }
 
-function getLoginOptions(req, res) {
-  const authorizationParams = {
-    response_type: "code",
-    scope: "openid profile email offline_access",
-    audience: "https://audience.example.com",
-  };
-  const orgName = getOrgName(req.headers.host);
-  if (!orgName) {
-    authorizationParams.returnTo = req.query.returnTo || "/";
-    return { authorizationParams };
-  }
+// function getLoginOptions(req, res) {
+//   const authorizationParams = {
+//     response_type: "code",
+//     scope: "openid profile email offline_access",
+//     audience: "https://audience.example.com",
+//   };
+//   const orgName = getOrgName(req.headers.host);
+//   if (!orgName) {
+//     authorizationParams.returnTo = req.query.returnTo || "/";
+//     return { authorizationParams };
+//   }
 
-  const orgId = getOrgId(orgName);
-  if (!orgId) {
-    res.status(400).end("Unable to resolve organization");
-  }
-  const returnTo = getReturnTo(req.query.returnTo, orgName);
-  return {
-    authorizationParams: {
-      ...authorizationParams,
-      redirect_uri: `http://${orgName}.localhost:3000/api/auth/callback`,
-      organization: orgId,
-      returnTo,
-    },
-    returnTo,
-  };
-}
+//   const orgId = getOrgId(orgName);
+//   if (!orgId) {
+//     res.status(400).end("Unable to resolve organization");
+//   }
+//   const returnTo = getReturnTo(req.query.returnTo, orgName);
+//   return {
+//     authorizationParams: {
+//       ...authorizationParams,
+//       redirect_uri: `http://${orgName}.localhost:3000/api/auth/callback`,
+//       organization: orgId,
+//       returnTo,
+//     },
+//     returnTo,
+//   };
+// }
 
 export default handleAuth({
   // async login(req, res) {
