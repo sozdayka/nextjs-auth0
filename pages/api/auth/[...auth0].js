@@ -82,7 +82,7 @@ export default handleAuth({
       }
 
       await handleCallback(req, res, {
-        redirectUri: `http://${orgName}.localhost:3000/api/auth/callback`,
+        redirectUri: `http://${orgName}/api/auth/callback`,
       });
     } catch (error) {
       res.status(error.status || 400).end(error.message);
