@@ -20,7 +20,8 @@ function getReturnTo(path = "/", orgName) {
 }
 
 function getOrgName(hostname) {
-  const matches = hostname.match(/([^.]*)\.localhost(?::\d{2,4})?/i);
+  const matches = hostname.match(/([^.]*)\.sozdayka.solutions(?::\d{2,4})?/i);
+  // const matches = hostname.match(/([^.]*)\.localhost(?::\d{2,4})?/i);
   return Array.isArray(matches) ? matches[1] : null;
 }
 
@@ -75,7 +76,7 @@ export default handleAuth({
   async callback(req, res) {
     try {
       console.log({host: req.headers})
-      const orgName = getOrgName(req.headers.host);
+      const orgName = getOrgName(req.headers['x-forwarded-host']);
       if (!orgName) {
         return res.status(400).end("Unable to resolve organization");
       }
