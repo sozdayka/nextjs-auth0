@@ -74,7 +74,7 @@ export default handleAuth({
 
   async callback(req, res) {
     try {
-      console.log({host: req.headers.host})
+      console.log({host: req.headers})
       const orgName = getOrgName(req.headers.host);
       if (!orgName) {
         return res.status(400).end("Unable to resolve organization");
