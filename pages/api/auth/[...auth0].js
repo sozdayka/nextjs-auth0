@@ -54,8 +54,8 @@ function getOrgName(hostname) {
 // }
 
 export default handleAuth({
-  // async login(req, res) {
-  //   try {
+  async login(req, res) {
+    try {
   //     // Check if user already has a valid session
   //     const orgName = getOrgName(req.headers.host);
   //     const hasSession = !!getSession(req, res);
@@ -64,18 +64,22 @@ export default handleAuth({
   //     }
 
   //     const { authorizationParams, returnTo } = getLoginOptions(req, res);
-  //     await handleLogin(req, res, {
-  //       authorizationParams,
-  //       returnTo,
-  //     });
-  //   } catch (error) {
-  //     res.status(error.status || 500).end(error.message);
-  //   }
-  // },
+  const orgName = getOrgName(req.headers['x-forwarded-host']);
+      await handleLogin(req, res, {
+        redirectUri: `https://${orgName}/api/auth/callback`,
+        // authorizationParams:{
+        //   redirect_uri: `http://${orgName}.localhost:3000/api/auth/callback`,
+        // },
+        // // returnTo,
+      });
+    } catch (error) {
+      res.status(error.status || 500).end(error.message);
+    }
+  },
 
   async callback(req, res) {
     try {
-      console.log({req})
+      console.log({req, window})
       console.log({host: req.headers})
       const orgName = getOrgName(req.headers['x-forwarded-host']);
       if (!orgName) {
