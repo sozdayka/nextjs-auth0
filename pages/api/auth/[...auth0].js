@@ -53,44 +53,45 @@ function getOrgName(hostname) {
 //   };
 // }
 
-export default handleAuth({
-  // async login(req, res) {
-  //   try {
-  // //     // Check if user already has a valid session
-  // //     const orgName = getOrgName(req.headers.host);
-  // //     const hasSession = !!getSession(req, res);
-  // //     if (orgName && hasSession) {
-  // //       return res.redirect(getReturnTo(req.query.returnTo, orgName));
-  // //     }
+export default handleAuth()
+// export default handleAuth({
+//   // async login(req, res) {
+//   //   try {
+//   // //     // Check if user already has a valid session
+//   // //     const orgName = getOrgName(req.headers.host);
+//   // //     const hasSession = !!getSession(req, res);
+//   // //     if (orgName && hasSession) {
+//   // //       return res.redirect(getReturnTo(req.query.returnTo, orgName));
+//   // //     }
 
-  // //     const { authorizationParams, returnTo } = getLoginOptions(req, res);
-  // const orgName = getOrgName(req.headers['x-forwarded-host']);
-  //     await handleLogin(req, res, {
-  //       redirectUri: `https://${orgName}/api/auth/callback`,
-  //       // authorizationParams:{
-  //       //   redirect_uri: `http://${orgName}.localhost:3000/api/auth/callback`,
-  //       // },
-  //       // // returnTo,
-  //     });
-  //   } catch (error) {
-  //     res.status(error.status || 500).end(error.message);
-  //   }
-  // },
+//   // //     const { authorizationParams, returnTo } = getLoginOptions(req, res);
+//   // const orgName = getOrgName(req.headers['x-forwarded-host']);
+//   //     await handleLogin(req, res, {
+//   //       redirectUri: `https://${orgName}/api/auth/callback`,
+//   //       // authorizationParams:{
+//   //       //   redirect_uri: `http://${orgName}.localhost:3000/api/auth/callback`,
+//   //       // },
+//   //       // // returnTo,
+//   //     });
+//   //   } catch (error) {
+//   //     res.status(error.status || 500).end(error.message);
+//   //   }
+//   // },
 
-  async callback(req, res) {
-    try {
-      console.log({req})
-      console.log({host: req.headers})
-      const orgName = getOrgName(req.headers['x-forwarded-host']);
-      if (!orgName) {
-        return res.status(400).end("Unable to resolve organization");
-      }
+//   async callback(req, res) {
+//     try {
+//       console.log({req})
+//       console.log({host: req.headers})
+//       const orgName = getOrgName(req.headers['x-forwarded-host']);
+//       if (!orgName) {
+//         return res.status(400).end("Unable to resolve organization");
+//       }
 
-      await handleCallback(req, res, {
-        redirectUri: `https://sozdayka.solution/api/auth/callback`,
-      });
-    } catch (error) {
-      res.status(error.status || 400).end(error.message);
-    }
-  },
-});
+//       await handleCallback(req, res, {
+//         redirectUri: `https://sozdayka.solution/api/auth/callback`,
+//       });
+//     } catch (error) {
+//       res.status(error.status || 400).end(error.message);
+//     }
+//   },
+// });
